@@ -1,15 +1,13 @@
 <x-app-layout>
     <x-slot name="header">
+        <div class="bg-white">
+        <img class="float-left h-auto w-7 mr-2 rounded-full" src="https://firebasestorage.googleapis.com/v0/b/project-dummy-by-hide.appspot.com/o/other%2Flogo%20b-01.png?alt=media&token=c6e613cd-f0b7-43c0-aec0-51134ec408ee" alt="FAL" />
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('About') }}
+            {{ __('About FAL') }}
         </h2>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg px-10 py-10">
-                Body ABOUT
-            </div>
-        </div>
-    </div>
+    <x-slot name="slot">
+        @include('body.about')
+    </x-slot>
 </x-app-layout>

@@ -6,7 +6,7 @@
                 <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center">
                     <a href="{{ route('/') }}">
-                        <x-jet-application-mark class="block h-9 w-auto" />
+                        <img src="https://firebasestorage.googleapis.com/v0/b/project-dummy-by-hide.appspot.com/o/other%2Flogo%20b-01.png?alt=media&token=c6e613cd-f0b7-43c0-aec0-51134ec408ee" class="block h-12 w-auto" />                        
                     </a>
                 </div>
 
