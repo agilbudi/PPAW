@@ -10,8 +10,8 @@ class PagesController extends Controller
         return view('home');
     }
 
-    public function services(){
-        return view('pages.services');
+    public function privacy(){
+        return view('pages.privacy');
     }
 
     public function about(){

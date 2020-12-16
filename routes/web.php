@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PagesController;
+use App\Http\Livewire\Posts\Posts;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,12 +19,12 @@ use App\Http\Controllers\PagesController;
 // Route::get('/posts', function(){
 //     return view('livewire.posts');
 // });
-//Route::get('/post', Posts::class);
+Route::middleware(['auth:sanctum', 'verified'])->get('/post', [Posts::class, 'render'])->name('draft');
 // Route::get('/', function () {
 //     return view('home');
 // })->name('/');
 Route::get('/', [PagesController::class, 'index'])->name('/');
-Route::get('/services', [PagesController::class, 'services'])->name('services');
+Route::get('/privacy', [PagesController::class, 'privacy'])->name('privacy');
 Route::get('/about', [PagesController::class, 'about'])->name('about');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
