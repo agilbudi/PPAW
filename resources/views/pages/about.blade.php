@@ -8,6 +8,8 @@
     </x-slot>
 
     <x-slot name="slot">
-        @include('body.about')
+         @include('body.about')  <!--disini includ-tan dari views/body -->
+         <!--jadi disini tidak terlalu banyak kode semua isi ada di folder body -->
+         <!--gmana mnurutmu ribet gk? jd bingung gak? -->
     </x-slot>
 </x-app-layout>

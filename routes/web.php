@@ -16,17 +16,15 @@ use App\Http\Livewire\Posts\Posts;
 */
 
 
-// Route::get('/posts', function(){
-//     return view('livewire.posts');
-// });
-Route::middleware(['auth:sanctum', 'verified'])->get('/post', [Posts::class, 'render'])->name('draft');
-// Route::get('/', function () {
-//     return view('home');
-// })->name('/');
 Route::get('/', [PagesController::class, 'index'])->name('/');
 Route::get('/privacy', [PagesController::class, 'privacy'])->name('privacy');
 Route::get('/about', [PagesController::class, 'about'])->name('about');
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
+
+Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+
+    Route::get('/posts', [Posts::class, 'render'])->name('posts'); 
+});
