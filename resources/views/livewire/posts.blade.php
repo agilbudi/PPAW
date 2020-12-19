@@ -39,12 +39,12 @@
                                         </button>
                                     </div>
                                     <div class="mt-4">
-                                        <button class="bg-blue-400 text-black px-6 py-3 rounded hover:bg-blue-600">
+                                        <button wire:click="update({{$item->id}})" class="bg-blue-400 text-black px-6 py-3 rounded hover:bg-blue-600">
                                             Edit
                                         </button>
                                     </div>
                                     <div class="mt-4">
-                                        <button class="bg-red-400 text-black px-6 py-3 rounded hover:bg-red-600">
+                                        <button wire:click="destroy({{$item->id}})" class="bg-red-400 text-black px-6 py-3 rounded hover:bg-red-600">
                                             Deleted
                                         </button>
                                     </div>

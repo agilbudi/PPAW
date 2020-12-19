@@ -56,33 +56,13 @@ class Posts extends Component
         $posts= new Post;
         $posts->title= $request->input('title');
         $posts->body= $request->input('editor');//text
+        //kurang masukan iduser
         $posts->save();
 
         return redirect('/posts')->with('success','Post Created');
-    }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        $posts = Post::find($id);
-        return view('posts.show')->with('post', $posts);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        $posts = Post::find($id);
-        return view('posts.edit')->with('post', $posts);
+        $this->hideModal();
+        $this->resetFields();
     }
 
     /**
@@ -125,29 +105,18 @@ class Posts extends Component
     public function upload(Request $request)
     {
         if($request->hasFile('upload')) {
-            //get filename with extension
-            $filenamewithextension = $request->file('upload')->getClientOriginalName();
-      
-            //get filename without extension
-            $filename = pathinfo($filenamewithextension, PATHINFO_FILENAME);
-      
-            //get file extension
+            $originName = $request->file('upload')->getClientOriginalName();
+            $fileName = pathinfo($originName, PATHINFO_FILENAME);
             $extension = $request->file('upload')->getClientOriginalExtension();
-      
-            //filename to store
-            $filenametostore = $filename.'_'.time().'.'.$extension;
-      
-            //Upload File
-            $request->file('upload')->storeAs('public/uploads', $filenametostore);
- 
+            $fileName = $fileName.'_'.time().'.'.$extension;
+            $request->file('upload')->move(public_path('images'), $fileName);
             $CKEditorFuncNum = $request->input('CKEditorFuncNum');
-            $url = asset('storage/uploads/'.$filenametostore);
-            $msg = 'Image successfully uploaded';
-            $re = "<script>window.parent.CKEDITOR.tools.callFunction($CKEditorFuncNum, '$url', '$msg')</script>";
-             
-            // Render HTML output
-            @header('Content-type: text/html; charset=utf-8');
-            echo $re;
+            $url = asset('images/'.$fileName); 
+            $msg = 'Image successfully uploaded'; 
+            $response = "<script>window.parent.CKEDITOR.tools.callFunction($CKEditorFuncNum, '$url', '$msg')</script>";
+               
+            @header('Content-type: text/html; charset=utf-8'); 
+            echo $response;
         }
     }
 }
