@@ -9,7 +9,7 @@ class Posts extends Component
 {
 
     public $posts, $iduser, $status, $title, $body;
-    public $isModal;
+    public $isModal = 0;
 
     public function render() 
     {
@@ -49,7 +49,8 @@ class Posts extends Component
         $this->validate($request, [
             'title' => 'required',
             'iduser' => 'required',
-            'editor' => 'required'//text
+            'editor' => 'required',//text
+            'status' => 'required'
         ]);
 
         //create posts
@@ -57,6 +58,10 @@ class Posts extends Component
         $posts->title= $request->input('title');
         $posts->body= $request->input('editor');//text
         //kurang masukan iduser
+        $posts->status = $request->input('status');
+
+
+
         $posts->save();
 
         return redirect('/posts')->with('success','Post Created');
