@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Posts;
+namespace App\Http\Livewire;
 
 use Livewire\Component;
 use App\Models\Post;
@@ -13,8 +13,13 @@ class Posts extends Component
 
     public function render() 
     {
+        $isModall = $this->isModal;
         $posts = Post::orderBy('created_at', 'desc')->paginate(5);
-        return view('livewire.posts')->with('posts', $posts); 
+        $data = [
+            'posts' => $posts,
+            'isModal' => $isModall
+        ];
+        return view('livewire.posts')->with($data); 
     }
 
     public function create(){

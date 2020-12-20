@@ -53,7 +53,7 @@
                                     </div>
                                 @endforeach
                             @endif
-                        {{$posts->link()}}
+                        {{$posts->links()}}
                         @else
                             <h1> Tidak ada Artikel</h1>
                         @endif
