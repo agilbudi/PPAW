@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PagesController;
-use App\Http\Livewire\Posts\Posts;
+use App\Http\Controllers\Posts;
 
 /*
 |--------------------------------------------------------------------------
