@@ -22,10 +22,11 @@ Route::get('/about', [PagesController::class, 'about'])->name('about');
 
 
 Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    // Route::get('/dashboard', function () {
+    //     return view('dashboard');
+    // })->name('dashboard');
 
-    Route::get('/posts', [Posts::class, 'render'])->name('posts');
-    Route::get('editor/upload', [Posts::class, 'upload'])->name('editor.image-upload'); 
+    Route::get('/dashboard', Posts::class)->name('dashboard');
+    //Route::get('/posts', [Posts::class, 'render'])->name('posts');
+    //Route::get('editor/upload', [Posts::class, 'upload'])->name('editor.image-upload'); 
 });

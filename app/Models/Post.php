@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
     use HasFactory;
-    protected $fillable = ['id','status' ,'title', 'body', 'created_at', 'update_at', 'iduser']; 
+    protected $fillable = ['id', 'iduser','status' ,'title', 'body', 'created_at', 'update_at']; 
     protected $appends= ['status_label'];
 
     public function getStatusAttribute(){

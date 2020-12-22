@@ -19,7 +19,7 @@ class Posts extends Component
             'posts' => $posts,
             'isModal' => $isModall
         ];
-        return view('livewire.posts')->with($data); 
+        return view('dashboard')->with($data); 
     }
 
     public function create(){

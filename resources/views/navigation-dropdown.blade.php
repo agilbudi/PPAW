@@ -16,9 +16,9 @@
                         <x-jet-nav-link href="{{ route('/') }}" :active="request()->routeIs('/')">
                             {{ __('Home') }}
                         </x-jet-nav-link>
-                        <x-jet-nav-link href="{{ route('posts') }}" :active="request()->routeIs('posts')">
+                        {{-- <x-jet-nav-link href="{{ route('posts') }}" :active="request()->routeIs('posts')">
                             {{ __('Posts') }}
-                        </x-jet-nav-link>
+                        </x-jet-nav-link> --}}
                         <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                             {{ __('Dashboard') }}
                         </x-jet-nav-link>
@@ -157,9 +157,9 @@
                 <x-jet-responsive-nav-link href="{{ route('/') }}" :active="request()->routeIs('/')">
                     {{ __('Home') }}
                 </x-jet-responsive-nav-link>
-                <x-jet-responsive-nav-link href="{{ route('posts') }}" :active="request()->routeIs('posts')">
+                {{-- <x-jet-responsive-nav-link href="{{ route('posts') }}" :active="request()->routeIs('posts')">
                     {{ __('Posts') }}
-                </x-jet-responsive-nav-link>
+                </x-jet-responsive-nav-link> --}}
                 <x-jet-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                     {{ __('Dashboard') }}
                 </x-jet-responsive-nav-link>

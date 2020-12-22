@@ -1,9 +1,9 @@
 <x-app-layout>
-    <x-slot name="header">
+    @section('header')
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('PRIVACY POLICY') }}
         </h2>
-    </x-slot>
+    @endsection
 
     <x-slot name="slot">
         @include('body.privacy')
