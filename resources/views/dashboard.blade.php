@@ -20,6 +20,8 @@
                 
                 @if($isModal)
                     @include('livewire.createpost')
+                @elseif($isModalE)
+                    @include('livewire.editpost')
                 @endif
     
                 <table class="table-fixed w-full">
@@ -46,7 +48,7 @@
                                     @endif
                                 </td>
                                 <td class="border px-4 py-2">
-                                    <button wire:click="update({{ $post->id }})" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Edit</button>
+                                    <button wire:click="edit({{ $post->id }})" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Edit</button>
                                     <button wire:click="destroy({{ $post->id }})" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Hapus</button>
                                 </td>
                             </tr>

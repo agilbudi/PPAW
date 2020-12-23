@@ -10,8 +10,8 @@ use Illuminate\Support\Facades\Auth;
 class Posts extends Component
 {
 
-    public $posts, $iduser, $status, $title, $body;
-    public $isModal = 0;
+    public $posts, $iduser, $status, $title, $body, $passValue;
+    public $isModal = 0, $isModalE = 0;
 
     public function render() 
     {
@@ -44,11 +44,20 @@ class Posts extends Component
         $this->isModal = false;
     }
 
+    public function showModalE(){
+        $this->isModalE = true;
+    }
+
+    public function hideModalE(){
+        $this->isModalE = false;
+    }
+
     public function resetFields(){
         $this->iduser=Auth::id();
         $this->status='';
         $this->title='';
         $this->body='';
+        $this->passValue='';
     }
 
     /**
@@ -86,8 +95,7 @@ class Posts extends Component
         // $posts->body= $request->input('editor');//text
         // $posts->status = $request->input('status');
         // $post->iduser = $this->iduser;//memasukan iduser    
-
-        Post::updateOrCreate([
+        Post::create([
             'title' => $this->title,
             'body' => $this->body,
             'iduser' => $this->iduser,
@@ -105,6 +113,26 @@ class Posts extends Component
         $this->resetFields();
     }
 
+    public function update(){
+
+        Post::updateOrCreate(['id' => $this->passValue], [
+            'title' => $this->title,
+            'body' => $this->body,
+            'iduser' => $this->iduser,
+            'status' => $this->status,
+        ]);
+        // $posts->save();
+
+        request()->session()->flash(
+            'success',
+            'Post telah dibuat'
+        );
+        return redirect()->route('dashboard');
+
+        $this->hideModalE();
+        $this->resetFields();
+    }
+
     /**
      * Update the specified resource in storage.
      *
@@ -112,24 +140,34 @@ class Posts extends Component
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    // public function update(Request $request, $id)
+    public function edit($id)
     {
-        $this->validate($request, [
-            'title' => 'required',
-            'editor' => 'required'
-        ]);
+        // $this->validate($request, [
+        //     'title' => 'required',
+        //     'editor' => 'required'
+        // ]);
 
         //create posts
-        $posts= Post::find($id);
-        $posts->title= $request->input('title');
-        $posts->body= $request->input('editor');
-        $posts->save();
+        // $posts= Post::find($id);
+        // $posts->title= $request->input('title');
+        // $posts->body= $request->input('editor');
+        // $posts->save();
 
-        request()->session()->flash(
-            'success',
-            'Post telah di update'
-        );
-        return redirect()->route('dashboard');
+        $posts = Post::find($id); 
+        $this->title = $posts->title;
+        $this->body = $posts->body;
+        $this->status = $posts->status;
+        $this->iduser = $posts->iduser;
+
+        $this->passValue = $posts->id;
+        $this->showModalE(); 
+
+        // request()->session()->flash(
+        //     'success',
+        //     'Post telah di update'
+        // );
+        // return redirect()->route('dashboard');
     }
 
     /**
