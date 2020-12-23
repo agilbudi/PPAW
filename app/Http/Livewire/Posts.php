@@ -16,7 +16,7 @@ class Posts extends Component
     public function render() 
     {
         $user = auth()->user()->id; 
-        $this->posts = Post::orderBy('created_at', 'DESC')->get();
+        $this->posts = Post::orderBy('id', 'ASC')->get();
         // $isModall = $this->isModal;
         // $posts = Post::where('iduser',$user)->paginate(10);
         // $hitung = Post::where('iduser', $user)->count();
@@ -30,10 +30,10 @@ class Posts extends Component
     }
 
     public function create(){
-        $iduser = Auth::id();
         $this->resetFields();
         $this->showModal();
-        return view('livewire.createpost')->with('iduser',$iduser);
+        $this->iduser = Auth::id();
+        return view('livewire.createpost')->with('iduser', $this->iduser);
     }
     
     public function showModal(){
@@ -45,7 +45,7 @@ class Posts extends Component
     }
 
     public function resetFields(){
-        $this->iduser='';
+        $this->iduser=Auth::id();
         $this->status='';
         $this->title='';
         $this->body='';
@@ -78,22 +78,28 @@ class Posts extends Component
         //     'editor' => 'required',//text
         //     'status' => 'required'
         // ]);
-        
-        $userId = Auth::id();
 
         //create posts
-        $posts= new Post;
-        $post->iduser = $request->input('iduser');
-        $posts->title= $request->input('title');
-        $posts->body= $request->input('editor');//text
-        //kurang masukan iduser
-        $posts->status = $request->input('status');
+        // $posts= new Post;
+        
+        // $posts->title= $request->input('title');
+        // $posts->body= $request->input('editor');//text
+        // $posts->status = $request->input('status');
+        // $post->iduser = $this->iduser;//memasukan iduser    
 
+        Post::updateOrCreate([
+            'title' => $this->title,
+            'body' => $this->body,
+            'iduser' => $this->iduser,
+            'status' => $this->status,
+        ]);
+        // $posts->save();
 
-
-        $posts->save();
-
-        return redirect('/dashboard')->with('success','Post Created');
+        request()->session()->flash(
+            'success',
+            'Post telah dibuat'
+        );
+        return redirect()->route('dashboard');
 
         $this->hideModal();
         $this->resetFields();
@@ -119,7 +125,11 @@ class Posts extends Component
         $posts->body= $request->input('editor');
         $posts->save();
 
-        return redirect('/dashboard')->with('success','Post Updated');
+        request()->session()->flash(
+            'success',
+            'Post telah di update'
+        );
+        return redirect()->route('dashboard');
     }
 
     /**
