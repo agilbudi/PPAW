@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use Livewire\Component;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class Posts extends Component
 {
@@ -12,24 +13,27 @@ class Posts extends Component
     public $posts, $iduser, $status, $title, $body;
     public $isModal = 0;
 
-    public function index() 
+    public function render() 
     {
         $user = auth()->user()->id; 
-        $isModall = $this->isModal;
-        $posts = Post::where('iduser',$user)->paginate(10);
-        $hitung = Post::where('iduser', $user)->count();
-        $data = [
-            'hitung' => $hitung,
-            'posts' => $posts,
-            'isModal' => $isModall
-        ];
-        return view('dashboard')->with($data); 
+        $this->posts = Post::orderBy('created_at', 'DESC')->get();
+        // $isModall = $this->isModal;
+        // $posts = Post::where('iduser',$user)->paginate(10);
+        // $hitung = Post::where('iduser', $user)->count();
+        // $data = [
+        //     'hitung' => $hitung,
+        //     'posts' => $posts,
+        //     'isModal' => $isModall
+        // ];
+        // return view('dashboard')->with($data);
+        return view('dashboard'); 
     }
 
     public function create(){
+        $iduser = Auth::id();
         $this->resetFields();
         $this->showModal();
-        return view('livewire.createpost');
+        return view('livewire.createpost')->with('iduser',$iduser);
     }
     
     public function showModal(){
@@ -68,15 +72,18 @@ class Posts extends Component
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'title' => 'required',
-            'iduser' => 'required',
-            'editor' => 'required',//text
-            'status' => 'required'
-        ]);
+        // $this->validate($request, [
+        //     'title' => 'required',
+        //     'iduser' => 'required',
+        //     'editor' => 'required',//text
+        //     'status' => 'required'
+        // ]);
+        
+        $userId = Auth::id();
 
         //create posts
         $posts= new Post;
+        $post->iduser = $request->input('iduser');
         $posts->title= $request->input('title');
         $posts->body= $request->input('editor');//text
         //kurang masukan iduser
@@ -112,7 +119,7 @@ class Posts extends Component
         $posts->body= $request->input('editor');
         $posts->save();
 
-        return redirect('/posts')->with('success','Post Updated');
+        return redirect('/dashboard')->with('success','Post Updated');
     }
 
     /**
@@ -125,7 +132,11 @@ class Posts extends Component
     {
         $posts= Post::find($id);
         $posts->delete();
-        return redirect('/dashboard')->with('success','Post Deleted');
+        request()->session()->flash(
+            'success',
+            'Post Deleted'
+        );
+        return redirect()->route('dashboard');
     }
 
     //for image upload CKEditor 4

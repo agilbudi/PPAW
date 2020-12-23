@@ -1,66 +1,64 @@
-<x-app-layout>
     @section('header')
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Dashboard') }}
         </h2>
     @endsection
-    <div class="py-10">
+    <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg px-10 py-10">
-                {{-- <button wire:click="create()" class="cursor-pointer py-2 px-4 rounded transition duration-500 ease-in-out bg-green-300 hover:bg-blue-500 transform hover:-translate-y-1 hover:scale-110">
-                    Buat Post Baru
-                </button> --}}
-                <button class="cursor-pointer py-2 px-4 rounded transition duration-500 ease-in-out bg-green-300 hover:bg-blue-500 transform hover:-translate-y-1 hover:scale-110"><a href="/posts/create">Buat Post Baru</a></button>
-                    
-                <div class="bg-gray-100 overflow-hidden shadow-xl sm:rounded-lg mt-5 px-10 py-10">
-                    @if ($isModal)
-                        {{route('posts.create')}}
-                    @endif
-                    @if ($hitung > 0)
-                        @foreach ($posts as $post)
-                            {{-- <div class="shadow bg-white">
-                                <div class=" bg-size bg-cover bg-center"
-                                    style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/7/71/Black.png')">
-                                    <div class="p-4 h-32 flex items-end text-white">
-                                        <h3><a href="/posts/{{$post->id}}">{{ $post->title }}</a></h3>
-                                    </div>
-                                </div>
-                                <div class="p-4">
-                                    <p class="text-grey-600 text-sm">
-                                    {{ substr($post["body"],0,100) }}
-                                    </p>
-                                    <div class="mt-4">
-                                        <button class="bg-white text-black px-6 py-3 rounded hover:bg-green-200">
-                                            Show
-                                        </button>
-                                    </div>
-                                    <div class="mt-4">
-                                        <button wire:click="update({{$post->id}})" class="bg-blue-400 text-black px-6 py-3 rounded hover:bg-blue-600">
-                                            Edit
-                                        </button>
-                                    </div>
-                                    <div class="mt-4">
-                                        <button wire:click="destroy({{$post->id}})" class="bg-red-400 text-black px-6 py-3 rounded hover:bg-red-600">
-                                            Delete
-                                        </button>
-                                    </div>
-                                </div>
-                            </div> --}}
-                            <div class="shadow bg-white p-12">
-                            
-                                <h3><a href="/posts/{{$post->id}}">{{ $post->title }}</a></h3>
-                                <button data-toggle="modal" id="smallButton" data-target="#smallModal" data-attr="{{ route('posts.destroy', $post->id) }}" title="Delete Project">
-                                    delete
-                                </button>
-                            </div><br/>
-                        @endforeach
-                        {{$posts->links()}}
-                    @else
-                        <h1> Tidak ada Artikel</h1>
-                    @endif
-                </div>
+            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg px-4 py-4">
+                @if (session()->has('message'))
+                    <div class="bg-teal-100 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md my-3" role="alert">
+                        <div class="flex">
+                            <div>
+                                <p class="text-sm">{{ session('message') }}</p>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+
+                <button wire:click="create()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded my-3">Tambah Post</button>
+                
+                @if($isModal)
+                    @include('livewire.createpost')
+                @endif
+    
+                <table class="table-fixed w-full">
+                    <thead>
+                        <tr class="bg-gray-100">
+                            <th class="px-4 py-2">Judul</th>
+                            {{-- <th class="px-4 py-2">Email</th>
+                            <th class="px-4 py-2">Telp</th> --}}
+                            <th class="px-4 py-2 w-20">Status</th>
+                            <th class="px-4 py-2">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse($posts as $post)
+                            <tr>
+                                <td class="border px-4 py-2"><a href='/posts/{{$post->id}}'>{{ $post->title }}</a></td>
+                                {{-- <td class="border px-4 py-2">{{ $row->email }}</td>
+                                <td class="border px-4 py-2">{{ $row->phone_number }}</td> --}}
+                                <td class="border px-4 py-2">
+                                    @if($post->status==0)
+                                        Draft
+                                    @else
+                                        Public
+                                    @endif
+                                </td>
+                                <td class="border px-4 py-2">
+                                    <button wire:click="update({{ $post->id }})" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Edit</button>
+                                    <button wire:click="destroy({{ $post->id }})" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Hapus</button>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td class="border px-4 py-2 text-center" colspan="5">Tidak ada data</td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
-</x-app-layout>
+
  

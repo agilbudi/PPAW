@@ -1,4 +1,3 @@
-<x-app-layout>
 {{-- <div class="antialiased text-gray-900 md:w-full sm:w-full rounded-lg shadow-lg bg-white my-3">
 
 <form>
@@ -29,7 +28,7 @@
 
             <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                 <span class="flex w-full rounded-md shadow-sm sm:ml-3 sm:w-auto">
-                    <button wire:click.prevent="{{route('posts.store')}}" name="submit" type="button" value="1" class=" w-full bg-blue-600 shadow-lg text-white px-4 py-2 hover:bg-blue-700 mt-8 text-center font-semibold focus:outline-none ">Submit</button>
+                    <button wire:click.prevent="store()" name="submit" type="button" value="1" class=" w-full bg-blue-600 shadow-lg text-white px-4 py-2 hover:bg-blue-700 mt-8 text-center font-semibold focus:outline-none ">Submit</button>
                 </span>
 
                 <span class="mt-3 flex w-full rounded-md shadow-sm sm:mt-0 sm:w-auto">
@@ -45,7 +44,7 @@
 </div> --}}
 
 <!-- Warning Modal -->
-<div class="md:w-full sm:w-full rounded-lg shadow-lg bg-white my-3 p-10">
+{{-- <div class="md:w-full sm:w-full rounded-lg shadow-lg bg-white my-3">
     <div class="flex justify-between border-b border-gray-100 px-5 py-4">
           <div>
           <i class="fa fa-exclamation-circle text-green-500"></i>
@@ -56,7 +55,7 @@
           </div>
       </div>
   
-    <form method="POST" action={{route('posts.store')}}>
+    <form>
       <div class="px-10 py-5 text-gray-600">
             <div class="mx-4 card bg-white p-10 my-8">
                 <div class="title">
@@ -92,10 +91,60 @@
       </div>
       <div class="px-5 py-4 flex justify-end">
       <button wire:click="hideModal()" type="status" class="bg-blue-600 mr-1 rounded text-sm px-4 py-2 text-white hover:bg-red-700 transition duration-400 ease-in-out transform hover:-translate-x-1 hover:scale-105">Batal</button>
-      <button wire:click={{route('posts.store')}} name="submit" type="button" value="1" class="bg-blue-600 hover:br-blue-600 mr-1 rounded text-sm px-4 py-2 text-white hover:bg-red-700 transition duration-400 ease-in-out transform hover:-translate-x-1 hover:scale-105">
-        <a href="/dashboard">Submit</a></button>
+      <button wire:click.prevent="store()" name="submit" type="button" value="1" class=" bg-blue-600 hover:bg-blue-800 text-sm py-2 px-4 text-gray-700 hover:text-white transition duration-400 ease-in-out transform hover:-translate-y-1 hover:scale-105">Submit</button>
       </div>
   
     </form>
+</div> --}}
+<div class="fixed z-10 inset-0 overflow-y-auto ease-out duration-400">
+    <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+        <div class="fixed inset-0 transition-opacity">
+            <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+        </div>
+        <!-- This element is to trick the browser into centering the modal contents. -->
+        <span class="hidden sm:inline-block sm:align-middle sm:h-screen"></span>​
+        
+        <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full" role="dialog" aria-modal="true" aria-labelledby="modal-headline">
+            <form>
+                <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                    <div class="">
+                        <div class="mb-4">
+                            <label for="formTitle" class="block text-gray-700 text-sm font-bold mb-2">Title a{{$iduser}}x:</label>
+                            <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="formTitle" wire:model="title">
+                            @error('title') <span class="text-red-500">{{ $message }}</span>@enderror
+                        </div>
+                        <div class="mb-4">
+                            <label for="formBody" class="block text-gray-700 text-sm font-bold mb-2">Body:</label>
+                            <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="formBody" wire:model="body">
+                            @error('body') <span class="text-red-500">{{ $message }}</span>@enderror
+                        </div>
+                        <div class="mb-4">
+                            <label for="formIdUser" class="block text-gray-700 text-sm font-bold mb-2"></label>
+                            <input type="hidden" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="formIdUser" wire:model="iduser" value={{$iduser}}>
+                            @error('iduser') <span class="text-red-500">{{ $message }}</span>@enderror
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                    <span class="flex w-full rounded-md shadow-sm sm:ml-3 sm:w-auto">
+                        <button wire:click.prevent="store()" name="status" type="button" value='1' class="inline-flex justify-center w-full rounded-md border border-transparent px-4 py-2 bg-green-600 text-base leading-6 font-medium text-white shadow-sm hover:bg-green-500 focus:outline-none focus:border-green-700 focus:shadow-outline-green transition ease-in-out duration-150 sm:text-sm sm:leading-5">
+                        Publish
+                        </button>
+                    </span>
+                    <span class="flex w-full rounded-md shadow-sm sm:ml-3 sm:w-auto">
+                        <button wire:click.prevent="store()" name="status" type="button" value='0' class="inline-flex justify-center w-full rounded-md border border-transparent px-4 py-2 bg-green-600 text-base leading-6 font-medium text-white shadow-sm hover:bg-green-500 focus:outline-none focus:border-green-700 focus:shadow-outline-green transition ease-in-out duration-150 sm:text-sm sm:leading-5">
+                        Simpan sebagai Draft
+                        </button>
+                    </span>
+                    <span class="mt-3 flex w-full rounded-md shadow-sm sm:mt-0 sm:w-auto">
+                        
+                        <button wire:click="hideModal()" type="button" class="inline-flex justify-center w-full rounded-md border border-gray-300 px-4 py-2 bg-white text-base leading-6 font-medium text-gray-700 shadow-sm hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue transition ease-in-out duration-150 sm:text-sm sm:leading-5">
+                        Cancel
+                        </button>
+                    </span>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
-</x-app-layout>
