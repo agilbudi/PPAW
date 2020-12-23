@@ -12,11 +12,14 @@ class Posts extends Component
     public $posts, $iduser, $status, $title, $body;
     public $isModal = 0;
 
-    public function render() 
+    public function index() 
     {
+        $user = auth()->user()->id; 
         $isModall = $this->isModal;
-        $posts = Post::orderBy('created_at', 'desc')->paginate(5);
+        $posts = Post::where('iduser',$user)->paginate(10);
+        $hitung = Post::where('iduser', $user)->count();
         $data = [
+            'hitung' => $hitung,
             'posts' => $posts,
             'isModal' => $isModall
         ];
@@ -26,6 +29,7 @@ class Posts extends Component
     public function create(){
         $this->resetFields();
         $this->showModal();
+        return view('livewire.createpost');
     }
     
     public function showModal(){
@@ -43,6 +47,18 @@ class Posts extends Component
         $this->body='';
     }
 
+    /**
+     * Show Individual Post
+     */
+    public function show($id){
+        $user = auth()->user()->id; 
+        $post = Post::find($id);
+        $data =[
+            'post' => $post,
+            'user' => $user
+        ];
+        return view('pages.showPost')->with($data);
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -70,7 +86,7 @@ class Posts extends Component
 
         $posts->save();
 
-        return redirect('/posts')->with('success','Post Created');
+        return redirect('/dashboard')->with('success','Post Created');
 
         $this->hideModal();
         $this->resetFields();
@@ -109,7 +125,7 @@ class Posts extends Component
     {
         $posts= Post::find($id);
         $posts->delete();
-        return redirect('/posts')->with('success','Post Deleted');
+        return redirect('/dashboard')->with('success','Post Deleted');
     }
 
     //for image upload CKEditor 4

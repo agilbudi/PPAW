@@ -1,3 +1,4 @@
+<x-app-layout>
 {{-- <div class="antialiased text-gray-900 md:w-full sm:w-full rounded-lg shadow-lg bg-white my-3">
 
 <form>
@@ -28,7 +29,7 @@
 
             <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                 <span class="flex w-full rounded-md shadow-sm sm:ml-3 sm:w-auto">
-                    <button wire:click.prevent="store()" name="submit" type="button" value="1" class=" w-full bg-blue-600 shadow-lg text-white px-4 py-2 hover:bg-blue-700 mt-8 text-center font-semibold focus:outline-none ">Submit</button>
+                    <button wire:click.prevent="{{route('posts.store')}}" name="submit" type="button" value="1" class=" w-full bg-blue-600 shadow-lg text-white px-4 py-2 hover:bg-blue-700 mt-8 text-center font-semibold focus:outline-none ">Submit</button>
                 </span>
 
                 <span class="mt-3 flex w-full rounded-md shadow-sm sm:mt-0 sm:w-auto">
@@ -44,7 +45,7 @@
 </div> --}}
 
 <!-- Warning Modal -->
-<div class="md:w-full sm:w-full rounded-lg shadow-lg bg-white my-3">
+<div class="md:w-full sm:w-full rounded-lg shadow-lg bg-white my-3 p-10">
     <div class="flex justify-between border-b border-gray-100 px-5 py-4">
           <div>
           <i class="fa fa-exclamation-circle text-green-500"></i>
@@ -55,7 +56,7 @@
           </div>
       </div>
   
-    <form>
+    <form method="POST" action={{route('posts.store')}}>
       <div class="px-10 py-5 text-gray-600">
             <div class="mx-4 card bg-white p-10 my-8">
                 <div class="title">
@@ -91,8 +92,10 @@
       </div>
       <div class="px-5 py-4 flex justify-end">
       <button wire:click="hideModal()" type="status" class="bg-blue-600 mr-1 rounded text-sm px-4 py-2 text-white hover:bg-red-700 transition duration-400 ease-in-out transform hover:-translate-x-1 hover:scale-105">Batal</button>
-      <button wire:click.prevent="store()" name="submit" type="button" value="1" class=" bg-blue-600 hover:bg-blue-800 text-sm py-2 px-4 text-gray-700 hover:text-white transition duration-400 ease-in-out transform hover:-translate-y-1 hover:scale-105">Submit</button>
+      <button wire:click={{route('posts.store')}} name="submit" type="button" value="1" class="bg-blue-600 hover:br-blue-600 mr-1 rounded text-sm px-4 py-2 text-white hover:bg-red-700 transition duration-400 ease-in-out transform hover:-translate-x-1 hover:scale-105">
+        <a href="/dashboard">Submit</a></button>
       </div>
   
     </form>
 </div>
+</x-app-layout>
