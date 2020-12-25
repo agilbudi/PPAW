@@ -48,7 +48,7 @@
                         @else
                             <h1> Tidak ada Artikel</h1>
                         @endif --}}
-                        ini posts single <br>::> {{$post->body}}
+                        {{$post->body}}
                     </div>
                 </div>
             </div>

@@ -68,17 +68,18 @@ class Posts extends Component
      */
     public function home()
     {
-        $post = Post::where('status', '1')->orderBy('id','ASC')->get();
-        $user = User::all();
+        // $post = Post::where('status', '1')->orderBy('id','ASC')->get();
+        // $user = User::all();
         $join = DB::table('posts')
         ->join('users', 'users.id', '=', 'posts.iduser')
         ->select('posts.*', 'users.name')
         ->where('posts.status', '1')
-        ->get();
+        ->orderBy('created_at', 'DESC')
+        ->paginate(3);
 
         $data =[
-            'post' => $post,
-            'user' => $user,
+            // 'post' => $post,
+            // 'user' => $user,
             'join' => $join
         ];
         return view('home')->with($data); 
