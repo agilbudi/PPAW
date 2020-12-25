@@ -9,17 +9,19 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                <div class="h-screen overflow-hidden flex items-center justify-center">
+                <div class="h-screen overflow-hidden grid-flow-col p-5 items-center justify-center">
                     {{-- Menampilkan Post --}}
-                    <div class="max-w-2xl w-full lg:flex">
-                        {{-- menampilkan gambar --}}
+                    @forelse ($join as $item)
+                    <div class="max-w-screen-lg w-full lg:flex m-5">
+                        <!-- menampilkan gambar -->
                         <div class="h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden" style="background-image: url('https://tailwindcss.com/img/card-left.jpg')" title="Woman holding a mug">
                         </div>
+                        
                         <div class="border-r border-b border-l border-grey-light lg:border-l-0 lg:border-t lg:border-grey-light bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
                             <div class="mb-8">
-                                <p class="text-sm text-grey-dark flex items-center"> Aug 18 </p>
-                              <div class="text-black font-bold text-xl mb-2">Can coffee make you a better developer?</div>
-                              <p class="text-grey-darker text-base">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.</p>
+                                <p class="text-sm text-grey-dark flex items-center"> {{$item->created_at}} </p>
+                              <div class="text-black font-bold text-xl mb-2"> {{$item->title}} </div>
+                              <p class="text-grey-darker text-base"> {{$item->body}} </p>
                             </div>
                             <div class="flex items-center"> 
                               <div class="text-sm">
@@ -28,8 +30,14 @@
                                 </button>
                               </div>
                             </div>
-                          </div>
-                    </div>
+                            <div class="object-right-bottom">
+                                <small class="text-gray-200"> {{$item->name}} </small>
+                            </div>
+                        </div>
+                    </div>   
+                    @empty
+                        
+                    @endforelse
                 </div>
             </div>
         </div>

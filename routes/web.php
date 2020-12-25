@@ -16,9 +16,10 @@ use App\Http\Livewire\Posts;
 */
 
 
-Route::get('/', [PagesController::class, 'index'])->name('/');
+Route::get('/', [Posts::class, 'home'])->name('/');
 Route::get('/privacy', [PagesController::class, 'privacy'])->name('privacy');
 Route::get('/about', [PagesController::class, 'about'])->name('about');
+Route::get('/post/{id}', [Posts::class, 'show']);
 
 Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     Route::get('/dashboard', Posts::class)->name('dashboard');

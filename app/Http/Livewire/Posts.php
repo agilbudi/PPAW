@@ -4,19 +4,22 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+
 
 class Posts extends Component
 {
 
-    public $posts, $iduser, $status, $title, $body, $passValue;
+    public $posts, $iduser, $status, $title, $body, $image, $passValue;
     public $isModal = 0, $isModalE = 0;
 
     public function render() 
     {
         $user = auth()->user()->id; 
-        $this->posts = Post::orderBy('id', 'ASC')->get();
+        $this->posts = Post::where('iduser',"$user")->orderBy('id','ASC')->get();
         // $isModall = $this->isModal;
         // $posts = Post::where('iduser',$user)->paginate(10);
         // $hitung = Post::where('iduser', $user)->count();
@@ -61,16 +64,36 @@ class Posts extends Component
     }
 
     /**
+     * Menampilkan home
+     */
+    public function home()
+    {
+        $user = auth()->user()->id;
+        $post = Post::where('status', '1')->orderBy('id','ASC')->get();
+        $user = User::all();
+        $join = DB::table('posts')
+        ->join('users', 'users.id', '=', 'posts.iduser')
+        ->select('posts.*', 'users.name')
+        ->get(); 
+
+        $data =[
+            'post' => $post,
+            'user' => $user,
+            'join' => $join
+        ];
+        return view('home')->with($data); 
+    }
+    /**
      * Show Individual Post
      */
-    public function show($id){
+    public function show($idpost){
         $user = auth()->user()->id; 
-        $post = Post::find($id);
+        $post = Post::find($idpost);
         $data =[
             'post' => $post,
             'user' => $user
         ];
-        return view('pages.showPost')->with($data);
+        return view('livewire.posts')->with($data);
     }
 
     /**
@@ -88,19 +111,33 @@ class Posts extends Component
         //     'status' => 'required'
         // ]);
 
-        //create posts
-        // $posts= new Post;
-        
-        // $posts->title= $request->input('title');
-        // $posts->body= $request->input('editor');//text
-        // $posts->status = $request->input('status');
-        // $post->iduser = $this->iduser;//memasukan iduser    
+   
+        // handle upload file
+        if ($request->hasFile('image')) {
+            $fileNameWithExt = $request->file('image')->getClientOriginalName();
+            $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+            $extension = $request->file('image')->getClientOriginalExtension();
+            $image = $fileName.'_'.time().'.'.$extension;
+            //upload image
+            $path = $request->file('image')->storeAs('public/cover_images', $image);
+        }else {
+            $image = 'noImage.jpg';//
+        }
         Post::create([
             'title' => $this->title,
             'body' => $this->body,
             'iduser' => $this->iduser,
             'status' => $this->status,
+            'image' => $this->image
         ]);
+        //create posts
+        // $posts= new Post;
+        
+        // $posts->title= $request->input('title');
+        // $posts->body= $request->input('body');//text
+        // $posts->status = $request->input('status');
+        // $posts->iduser = $request->input('iduser');//memasukan iduser  
+        // $posts->image = $fileNameToStore;
         // $posts->save();
 
         request()->session()->flash(

@@ -15,7 +15,7 @@ class CreatePostsTable extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
-            $table->integer('iduser');
+            $table->foreignId('iduser')->references('id')->on('users');
             $table->enum('status', ['0','1'])->default('0'); //ok
             $table->string('title', 255);
             $table->mediumText('body');

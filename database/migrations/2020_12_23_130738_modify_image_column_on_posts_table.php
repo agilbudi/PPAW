@@ -14,7 +14,7 @@ class ModifyImageColumnOnPostsTable extends Migration
     public function up()
     {
         Schema::table('posts', function (Blueprint $table) {
-            $table->string('image', 255)->nullable()->change();
+            $table->string('image', 255)->nullable();
         });
     }
 
@@ -26,7 +26,7 @@ class ModifyImageColumnOnPostsTable extends Migration
     public function down()
     {
         Schema::table('posts', function (Blueprint $table) {
-            $table->string('image', 255)->change();
+            $table->string('image', 255);
         });
     }
 }

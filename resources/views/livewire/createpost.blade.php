@@ -105,7 +105,7 @@
         <span class="hidden sm:inline-block sm:align-middle sm:h-screen"></span>​
         
         <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full" role="dialog" aria-modal="true" aria-labelledby="modal-headline">
-            <form id="post-create">
+            <form id="post-create" method="POST" enctype="multipart/form-data">
                 <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                     <div class="">
                         <div class="mb-4">
@@ -122,6 +122,15 @@
                             <label for="formIdUser" class="block text-gray-700 text-sm font-bold mb-2"></label>
                             <input type="hidden" value="{{$iduser}}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="formIdUser" wire:model="iduser">
                             @error('iduser') <span class="text-red-500">{{ $message }}</span>@enderror
+                        </div>
+                        <div class="overflow-hidden relative w-64 mt-4 mb-4">
+                            <label class="w-40 flex flex-col items-center px-1 py-2 bg-white text-blue-500 rounded-lg shadow-lg tracking-wide uppercase border border-blue-500 cursor-pointer hover:bg-blue-800 hover:text-white">
+                                <svg class="w-8 h-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                    <path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
+                                </svg>
+                                <span class="mt-1 text-base leading-normal">Select a file</span>
+                                <input type='file' class="hidden" :multiple="multiple" :accept="accept" name="image"/>
+                            </label>
                         </div>
                         <div class="mb-4">
                             <label for="formStatus" class="block text-gray-700 text-sm font-bold mb-2">Status</label>

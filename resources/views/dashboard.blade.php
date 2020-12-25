@@ -37,7 +37,7 @@
                     <tbody>
                         @forelse($posts as $post)
                             <tr>
-                                <td class="border px-4 py-2"><a href='/posts/{{$post->id}}'>{{ $post->title }}</a></td>
+                                <td class="border px-4 py-2"><a href='/post/{{$post->id}}'>{{ $post->title }}</a></td>
                                 {{-- <td class="border px-4 py-2">{{ $row->email }}</td>
                                 <td class="border px-4 py-2">{{ $row->phone_number }}</td> --}}
                                 <td class="border px-4 py-2">
