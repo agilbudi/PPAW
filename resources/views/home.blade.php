@@ -31,18 +31,10 @@
                                 </div>
                                 </div>
                                 <div class="object-right-bottom">
-                                    <small class="text-gray-200"> {{$item->name}} </small>
+                                    <small class="text-gray-400"> {{$item->name}} </small>
                                 </div>
                             </div>
-<<<<<<< HEAD
                         </div>   
-=======
-                            <div class="object-right-bottom">
-                                <small class="text-gray"> by:  {{$item->name}} </small>
-                            </div>
-                        </div>
-                    </div>   
->>>>>>> e74c64e0e5a1a7a2144c56d5efbea1ca35f305da
                     @empty
                         <tr>
                             <td class="border px-4 py-2 text-center" colspan="5">Tidak ada data</td>
