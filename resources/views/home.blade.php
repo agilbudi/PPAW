@@ -31,13 +31,14 @@
                               </div>
                             </div>
                             <div class="object-right-bottom">
-                                <small class="text-gray-200"> {{$item->name}} </small>
+                                <small class="text-gray"> by:  {{$item->name}} </small>
                             </div>
                         </div>
                     </div>   
                     @empty
                         
                     @endforelse
+                    {{$join->links()}}
                 </div>
             </div>
         </div>
