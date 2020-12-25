@@ -68,13 +68,13 @@ class Posts extends Component
      */
     public function home()
     {
-        $user = auth()->user()->id;
         $post = Post::where('status', '1')->orderBy('id','ASC')->get();
         $user = User::all();
         $join = DB::table('posts')
         ->join('users', 'users.id', '=', 'posts.iduser')
         ->select('posts.*', 'users.name')
-        ->get(); 
+        ->where('posts.status', '1')
+        ->get();
 
         $data =[
             'post' => $post,
