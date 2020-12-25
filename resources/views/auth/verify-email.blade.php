@@ -1,7 +1,9 @@
 <x-guest-layout>
     <x-jet-authentication-card>
         <x-slot name="logo">
-            <x-jet-authentication-card-logo />
+            <a href="/">
+                <img src="https://firebasestorage.googleapis.com/v0/b/project-dummy-by-hide.appspot.com/o/other%2Flogo-01.png?alt=media&token=2b5a8326-8e56-43a1-b30c-084090d2847a" class="block h-32 w-auto" /> 
+            </a>
         </x-slot>
 
         <div class="mb-4 text-sm text-gray-600">
