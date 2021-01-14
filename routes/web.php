@@ -23,6 +23,4 @@ Route::get('/post/{id}', [Posts::class, 'show']);
 
 Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     Route::get('/dashboard', Posts::class)->name('dashboard');
-    //Route::get('/posts', [Posts::class, 'render'])->name('posts');
-    //Route::get('editor/upload', [Posts::class, 'upload'])->name('editor.image-upload'); 
 });

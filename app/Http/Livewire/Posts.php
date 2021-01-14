@@ -8,10 +8,12 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Livewire\WithFileUploads;
 
 
 class Posts extends Component
 {
+    use WithFileUploads;
 
     public $posts, $iduser, $status, $title, $body, $image, $passValue;
     public $isModal = 0, $isModalE = 0;
@@ -105,25 +107,25 @@ class Posts extends Component
      */
     public function store(Request $request)
     {
-        // $this->validate($request, [
-        //     'title' => 'required',
-        //     'iduser' => 'required',
-        //     'editor' => 'required',//text
-        //     'status' => 'required'
-        // ]);
+    
+        // if ($request->hasFile('image')) {
+        //     $fileNameWithExt = $request->file('image')->getClientOriginalName();
+        //     $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+        //     $extension = $request->file('image')->getClientOriginalExtension();
+        //     $image = $fileName.'_'.time().'.'.$extension;
+        //     //upload image
+        //     $path = $request->file('image')->storeAs('public/cover_images', $image);
+        // }else {
+        //     $image = 'noImage.jpg';//
+        // }
+        
+        $validatedata = $this->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg', // 1MB Max
+        ]);
+        
+        
+        $validatedata['image'] = $this->file->store('image', 'public');
 
-   
-        // handle upload file
-        if ($request->hasFile('image')) {
-            $fileNameWithExt = $request->file('image')->getClientOriginalName();
-            $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
-            $extension = $request->file('image')->getClientOriginalExtension();
-            $image = $fileName.'_'.time().'.'.$extension;
-            //upload image
-            $path = $request->file('image')->storeAs('public/cover_images', $image);
-        }else {
-            $image = 'noImage.jpg';//
-        }
         Post::create([
             'title' => $this->title,
             'body' => $this->body,
@@ -131,15 +133,6 @@ class Posts extends Component
             'status' => $this->status,
             'image' => $this->image
         ]);
-        //create posts
-        // $posts= new Post;
-        
-        // $posts->title= $request->input('title');
-        // $posts->body= $request->input('body');//text
-        // $posts->status = $request->input('status');
-        // $posts->iduser = $request->input('iduser');//memasukan iduser  
-        // $posts->image = $fileNameToStore;
-        // $posts->save();
 
         request()->session()->flash(
             'success',
