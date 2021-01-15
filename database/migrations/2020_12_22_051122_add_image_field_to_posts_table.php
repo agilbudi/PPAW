@@ -14,7 +14,7 @@ class AddImageFieldToPostsTable extends Migration
     public function up()
     {
         Schema::table('posts', function (Blueprint $table) {
-            $table->string('image', 255)->after('body');
+            $table->string('image', 255)->nullable()->after('body');
         });
     }
 

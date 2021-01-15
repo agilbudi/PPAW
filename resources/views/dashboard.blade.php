@@ -28,8 +28,6 @@
                     <thead>
                         <tr class="bg-gray-100">
                             <th class="px-4 py-2">Judul</th>
-                            {{-- <th class="px-4 py-2">Email</th>
-                            <th class="px-4 py-2">Telp</th> --}}
                             <th class="px-4 py-2 w-20">Status</th>
                             <th class="px-4 py-2">Action</th>
                         </tr>
@@ -38,8 +36,6 @@
                         @forelse($posts as $post)
                             <tr>
                                 <td class="border px-4 py-2"><a href='/post/{{$post->id}}'>{{ $post->title }}</a></td>
-                                {{-- <td class="border px-4 py-2">{{ $row->email }}</td>
-                                <td class="border px-4 py-2">{{ $row->phone_number }}</td> --}}
                                 <td class="border px-4 py-2">
                                     @if($post->status==0)
                                         Draft

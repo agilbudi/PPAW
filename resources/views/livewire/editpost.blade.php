@@ -46,7 +46,6 @@
                             </select>
                             @error('status') <span class="text-red-500">{{ $message }}</span>@enderror
                         </div>
-                        {{-- <input type="hidden" id="formPassValue" wire:model='passValue' value="{{$passValue}}"> --}}
                     </div>
                 </div>
     

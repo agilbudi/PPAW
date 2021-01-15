@@ -108,18 +108,6 @@ class Posts extends Component
      */
     public function store(Request $request)
     {
-    
-        // if ($request->hasFile('image')) {
-        //     $fileNameWithExt = $request->file('image')->getClientOriginalName();
-        //     $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
-        //     $extension = $request->file('image')->getClientOriginalExtension();
-        //     $image = $fileName.'_'.time().'.'.$extension;
-        //     //upload image
-        //     $path = $request->file('image')->storeAs('public/cover_images', $image);
-        // }else {
-        //     $image = 'noImage.jpg';//
-        // }
-        
         $validatedata = $this->validate([
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg', // 1MB Max
         ]);
@@ -178,17 +166,6 @@ class Posts extends Component
     // public function update(Request $request, $id)
     public function edit($id)
     {
-        // $this->validate($request, [
-        //     'title' => 'required',
-        //     'editor' => 'required'
-        // ]);
-
-        //create posts
-        // $posts= Post::find($id);
-        // $posts->title= $request->input('title');
-        // $posts->body= $request->input('editor');
-        // $posts->save();
-
         $posts = Post::find($id); 
         $this->title = $posts->title;
         $this->body = $posts->body;
@@ -197,12 +174,6 @@ class Posts extends Component
 
         $this->passValue = $posts->id;
         $this->showModalE(); 
-
-        // request()->session()->flash(
-        //     'success',
-        //     'Post telah di update'
-        // );
-        // return redirect()->route('dashboard');
     }
 
     /**
