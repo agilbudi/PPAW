@@ -9,7 +9,7 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                <div class="grid grid-cols-2 gap-2 p-5 items-center justify-center">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 p-5 items-center justify-center">
                     {{-- Menampilkan Post --}}
                     @forelse ($join as $item)
                         <div class="max-w-screen-lg w-full lg:flex m-5">
