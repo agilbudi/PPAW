@@ -1,3 +1,15 @@
+<style>
+    textarea {
+        width: 100%;
+        height: 150px;
+        padding: 12px 20px;
+        box-sizing: border-box;
+        border: 2px solid #ccc;
+        border-radius: 4px;
+        background-color: #f8f8f8;
+        resize: none;
+    }
+</style>
 <div class="fixed z-10 inset-0 overflow-y-auto ease-out duration-400">
     <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
         <div class="fixed inset-0 transition-opacity">
@@ -5,8 +17,8 @@
         </div>
         <!-- This element is to trick the browser into centering the modal contents. -->
         <span class="hidden sm:inline-block sm:align-middle sm:h-screen"></span>​
-        
-        <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full" role="dialog" aria-modal="true" aria-labelledby="modal-headline">
+
+        <div class="inline-block overflow-hidden transform bg-white text-left shadow-xl trasition-all md:my-8 md:align-middle md:w-2/3" role="dialog" aria-modal="true" aria-labelledby="modal-headline">
             <form id="post-create">
                 <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                     <div class="">
@@ -17,7 +29,7 @@
                         </div>
                         <div class="mb-4">
                             <label for="formBody"  class="block text-gray-700 text-sm font-bold mb-2">Body:</label>
-                            <input type="text" value="{{$iduser}}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="formBody" wire:model="body">
+                            <textarea class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline md:h-48 textarea" id="formBody" wire:model="body">{{$body}}</textarea>
                             @error('body') <span class="text-red-500">{{ $message }}</span>@enderror
                         </div>
                         <div class="mb-4">
