@@ -48,6 +48,8 @@
                         @else
                             <h1> Tidak ada Artikel</h1>
                         @endif --}}
+                        <img src="{{$post->image}}" alt=""> <br/>
+                        {{$post->image}}
                         {{$post->body}}
                     </div>
                 </div>

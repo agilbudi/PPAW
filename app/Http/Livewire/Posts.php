@@ -15,7 +15,7 @@ class Posts extends Component
 {
     use WithFileUploads;
 
-    public $posts, $iduser, $status, $title, $body, $image, $passValue;
+    public $posts, $iduser, $status, $title, $body, $image, $pathFile, $passValue;
     public $isModal = 0, $isModalE = 0;
 
     public function render() 
@@ -63,6 +63,7 @@ class Posts extends Component
         $this->title='';
         $this->body='';
         $this->passValue='';
+        $this->pathFile='';
     }
 
     /**
@@ -122,17 +123,20 @@ class Posts extends Component
         $validatedata = $this->validate([
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg', // 1MB Max
         ]);
-        
-        
-        $validatedata['image'] = $this->file->store('image', 'public');
+
+        $namaFile = 'image_'.time();
+        $this->pathFile = '/storage/image/'.$namaFile;
 
         Post::create([
             'title' => $this->title,
             'body' => $this->body,
             'iduser' => $this->iduser,
             'status' => $this->status,
-            'image' => $this->image
+            'image' => $this->pathFile
         ]);
+            
+        $validatedata['image'] = $this->image->storeAs('image', $namaFile, 'public');
+        
 
         request()->session()->flash(
             'success',
