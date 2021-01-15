@@ -22,15 +22,6 @@ class Posts extends Component
     {
         $user = auth()->user()->id; 
         $this->posts = Post::where('iduser',"$user")->orderBy('id','ASC')->get();
-        // $isModall = $this->isModal;
-        // $posts = Post::where('iduser',$user)->paginate(10);
-        // $hitung = Post::where('iduser', $user)->count();
-        // $data = [
-        //     'hitung' => $hitung,
-        //     'posts' => $posts,
-        //     'isModal' => $isModall
-        // ];
-        // return view('dashboard')->with($data);
         return view('dashboard'); 
     }
 
@@ -71,18 +62,14 @@ class Posts extends Component
      */
     public function home()
     {
-        // $post = Post::where('status', '1')->orderBy('id','ASC')->get();
-        // $user = User::all();
         $join = DB::table('posts')
         ->join('users', 'users.id', '=', 'posts.iduser')
         ->select('posts.*', 'users.name')
         ->where('posts.status', '1')
         ->orderBy('created_at', 'DESC')
-        ->paginate(3);
+        ->paginate(6);
 
         $data =[
-            // 'post' => $post,
-            // 'user' => $user,
             'join' => $join
         ];
         return view('home')->with($data); 

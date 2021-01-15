@@ -9,7 +9,7 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                <div class="h-screen overflow-hidden grid-flow-col p-5 items-center justify-center">
+                <div class="grid grid-cols-2 gap-2 p-5 items-center justify-center">
                     {{-- Menampilkan Post --}}
                     @forelse ($join as $item)
                         <div class="max-w-screen-lg w-full lg:flex m-5">
@@ -40,8 +40,8 @@
                             <td class="border px-4 py-2 text-center" colspan="5">Tidak ada data</td>
                         </tr>
                     @endforelse
-                    {{$join->links()}}
                 </div>
+                {{$join->links()}}
             </div>
         </div>
     </div>
