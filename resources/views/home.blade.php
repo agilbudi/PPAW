@@ -7,17 +7,17 @@
     @endsection
 
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-5 sm:px-3 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 p-5 items-center justify-center">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4 justify-center max-w-7xl p-3 sm:p-5">
                     {{-- Menampilkan Post --}}
                     @forelse ($join as $item)
-                        <div class="max-w-screen-lg w-full lg:flex m-5">
+                        <div class="w-auto sm:w-full lg:flex">
                             <!-- menampilkan gambar -->
                             <div class="h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden" style="background-image: url('{{$item->image}}')" title="Post Image">
                             </div>
                             
-                            <div class="border-r border-b border-l border-grey-light lg:border-l-0 lg:border-t lg:border-grey-light bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
+                            <div class="overflow-hidden border-r border-b border-l border-grey-light lg:border-l-0 lg:border-t lg:border-grey-light bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
                                 <div class="mb-8">
                                     <p class="text-sm text-grey-dark flex items-center"> {{$item->created_at}} </p>
                                 <div class="text-black font-bold text-xl mb-2"> {{$item->title}} </div>
@@ -41,7 +41,7 @@
                         </tr>
                     @endforelse
                 </div>
-                {{$join->links()}}
+                <div class="p-3 text-blue-700">{{$join->links()}}</div>
             </div>
         </div>
     </div>
